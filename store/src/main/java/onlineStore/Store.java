@@ -1,31 +1,44 @@
 package onlineStore;
-import org.reflections.Reflections;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+
+import util.RandomStorePopulator;
+
+import java.util.*;
+
+import static onlineStore.StoreHelper.createCategoriesList;
 
 public class Store {
-    public List<Product> productsList = new ArrayList<>();
+    private List<Category> categories;
 
 
-    public void initStore(List<Product> list){
-        productsList = list;
+    public Store() {
+        categories = createCategoriesList();
     }
 
-    public void printStore(){
+    public void fillCategories() {
+        RandomStorePopulator populator = new RandomStorePopulator();
+        Random random = new Random();
 
-        Reflections reflections = new Reflections("onlineStore.categories");
+        for (Category category : categories) {
+            int j = random.nextInt(10);
 
-        Set<Class<? extends Category>> subTypes = reflections.getSubTypesOf(Category.class);
-        for (Class<? extends Category> subType : subTypes) {
-            System.out.println(subType.getSimpleName());
-            for (Product product : productsList) {
-                if(product.getCategory().equals(subType.getSimpleName()))
+            for (int i = 0; i < j; i++) {
+                String name = populator.generateName(category.getName());
+                int rate = populator.generateRate();
+                int price = populator.generatePrice();
+                Product product = new Product(name, rate, price);
+                category.putProductToList(product);
+            }
+        }
+    }
+
+    public void printStore() {
+        for (Category category : categories) {
+            System.out.println("Category: " + category.getName());
+
+            for (Product product : category.getProductList()) {
                 product.printProduct();
             }
-            System.out.println();
         }
-
     }
 }
 
