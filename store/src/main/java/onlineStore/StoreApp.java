@@ -19,17 +19,21 @@ public class StoreApp {
                 case "sort":
                     System.out.println("you typed the 'sort' command");
                     store.sort();
+                    flag= false;
                     break;
                 case "top":
                     System.out.println("you typed the 'top' command");
                     store.top();
+                    flag= false;
                     break;
                 case "quit":
                     System.out.println("quit");
+                    flag= false;
                     break;
                 default:
                     System.out.println("type again");
             }
         }
+        store.printStore();
     }
 }

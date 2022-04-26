@@ -50,7 +50,7 @@ public class Store {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Please type the command");
         String s = reader.readLine();
-        System.out.println("you typed" + s);
+        System.out.println("you typed: " + s);
         return s;
     }
 
@@ -66,13 +66,14 @@ public class Store {
 
     public void top() {
         List<Product> productList = new ArrayList<>();
+
         for (Category category : categories) {
             productList.addAll(category.getProductList());
         }
         Sorting.sortProductListByPrice(productList);
         System.out.println("Top 5 products by price:");
-        for (int i = 0; i < 5; i++) {
 
+        for (int i = 0; i < 5; i++) {
             System.out.println(productList.get(i));
         }
     }
