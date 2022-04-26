@@ -40,7 +40,7 @@ public class Sorting implements Comparator<Product>{
         return productsOfList;
     }
 
-    public static void sortProductListbyPrice(List<Product> productList) {
+    public static void sortProductListByPrice(List<Product> productList) {
         productList.sort(getComparator("price").reversed());
     }
 

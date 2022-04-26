@@ -69,7 +69,7 @@ public class Store {
         for (Category category : categories) {
             productList.addAll(category.getProductList());
         }
-        Sorting.sortProductListbyPrice(productList);
+        Sorting.sortProductListByPrice(productList);
         System.out.println("Top 5 products by price:");
         for (int i = 0; i < 5; i++) {
 
