@@ -13,7 +13,25 @@ public class Product {
     }
 
     public void printProduct() {
-        System.out.println("Name: " + name + ";  Rate: " + rate + ";  Price: " + price + ";");
+        System.out.println("Name: " + getName() + ";  Rate: " + getRate() + ";  Price: " + getPrice() + ";");
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getRate() {
+        return rate;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    @Override
+    public String toString() {
+        return "name='" + getName() + '\'' +
+                ", rate=" + getRate() +
+                ", price=" + getPrice();
+    }
 }
