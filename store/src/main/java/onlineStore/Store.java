@@ -1,15 +1,11 @@
 package onlineStore;
 
-import org.xml.sax.SAXException;
 import util.RandomStorePopulator;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.*;
 
 import static onlineStore.StoreHelper.createCategoriesList;
+import static util.ParsingXML.readerMap;
 
 public class Store {
     private List<Category> categories;
@@ -46,35 +42,40 @@ public class Store {
         }
     }
 
-    public String reader() throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Please type the command");
-        String s = reader.readLine();
-        System.out.println("you typed: " + s);
-        return s;
+    List<Product> getAllProducts() {
+        List<Product> list = new ArrayList<>();
+        for (Category category : categories) {
+            list.addAll(category.getProductList());
+        }
+        return list;
     }
 
-    public void sort() throws IOException, ParserConfigurationException, SAXException {
+    public void sort(String order) {
         for (Category category : categories) {
             System.out.println("Category: " + category.getName());
-            List<Product> list = Sorting.sortProductList(category.getProductList());
+            List<Product> list = new ArrayList<>();
+            try {
+                list = Sorting.sortProductList(category.getProductList(), readerMap(order));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             for (Product product : list) {
                 product.printProduct();
             }
         }
     }
 
-    public void top() {
-        List<Product> productList = new ArrayList<>();
-
-        for (Category category : categories) {
-            productList.addAll(category.getProductList());
+    public void top(String order) {
+        List<Product> sortedProductList = new ArrayList<>();
+        try {
+            sortedProductList = Sorting.sortProductList(getAllProducts(), readerMap(order));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        Sorting.sortProductListByPrice(productList);
         System.out.println("Top 5 products by price:");
 
         for (int i = 0; i < 5; i++) {
-            System.out.println(productList.get(i));
+            System.out.println(sortedProductList.get(i));
         }
     }
 

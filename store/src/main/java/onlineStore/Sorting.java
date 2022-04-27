@@ -6,9 +6,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.*;
 
-
-import static util.ParsingXML.readerMap;
-
 public class Sorting implements Comparator<Product> {
 
     public int compare(Product o1, Product o2) {
@@ -28,10 +25,8 @@ public class Sorting implements Comparator<Product> {
         }
     }
 
-    public static List<Product> sortProductList(List<Product> productList) throws IOException, ParserConfigurationException, SAXException {
+    public static List<Product> sortProductList(List<Product> productList, Map<String, String> sortingMap) throws IOException, ParserConfigurationException, SAXException {
         List<Product> productsOfList = new ArrayList<>(productList);
-        Map<String, String> sortingMap = readerMap();
-
         for (Map.Entry<String, String> entry : sortingMap.entrySet()) {
             if (entry.getValue().equals("asc")) {
                 productsOfList.sort(getComparator(entry.getKey()));
@@ -40,9 +35,5 @@ public class Sorting implements Comparator<Product> {
             }
         }
         return productsOfList;
-    }
-
-    public static void sortProductListByPrice(List<Product> productList) {
-        productList.sort(getComparator("price").reversed());
     }
 }

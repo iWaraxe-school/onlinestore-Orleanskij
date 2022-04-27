@@ -1,8 +1,11 @@
 package onlineStore;
 
 import org.xml.sax.SAXException;
+
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+
+import static onlineStore.StoreHelper.readerOrder;
 
 public class StoreApp {
 
@@ -13,25 +16,23 @@ public class StoreApp {
         store.printStore();
 
         Boolean flag = true;
-
+        String order = readerOrder();
         while (flag) {
-            switch (store.reader()) {
+            switch (order) {
                 case "sort":
-                    System.out.println("you typed the 'sort' command");
-                    store.sort();
-                    flag= false;
+                    store.sort(order);
+                    flag = false;
                     break;
                 case "top":
-                    System.out.println("you typed the 'top' command");
-                    store.top();
-                    flag= false;
+                    store.top(order);
+                    flag = false;
                     break;
                 case "quit":
-                    System.out.println("quit");
-                    flag= false;
+                    flag = false;
                     break;
                 default:
-                    System.out.println("type again");
+                    System.out.println("incorrect order");
+                    order = readerOrder();
             }
         }
 //        store.printStore();

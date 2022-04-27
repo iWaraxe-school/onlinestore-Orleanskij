@@ -5,5 +5,8 @@
         <price>asc</price>
         <rate>desc</rate>
     </sort>
+    <top>
+        <price>desc</price>
+    </top>
 
 </sorting>

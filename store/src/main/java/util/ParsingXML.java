@@ -23,10 +23,10 @@ public class ParsingXML {
         return document;
     }
 
-    public static Map<String, String> readerMap() throws IOException, ParserConfigurationException, SAXException {
+    public static Map<String, String> readerMap(String tagName) throws IOException, ParserConfigurationException, SAXException {
         Map<String, String> xmlData = new LinkedHashMap<>();
         Document doc = Parser_XML();
-        NodeList list = doc.getElementsByTagName("sort");
+        NodeList list = doc.getElementsByTagName(tagName);
 
         for (int i = 0; i < list.getLength(); i++) {
             Node node = list.item(i);
