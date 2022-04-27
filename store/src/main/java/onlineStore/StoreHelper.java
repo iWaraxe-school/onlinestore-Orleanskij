@@ -1,5 +1,6 @@
 package onlineStore;
 
+import Category.Category;
 import org.reflections.Reflections;
 
 import java.io.BufferedReader;
@@ -13,7 +14,7 @@ public class StoreHelper {
     public static List<Category> createCategoriesList() {
 
         List<Category> categoryToAdd = new ArrayList<>();
-        Reflections reflections = new Reflections("onlineStore.categories");
+        Reflections reflections = new Reflections("Category.categories");
 
         Set<Class<? extends Category>> subTypes = reflections.getSubTypesOf(Category.class);
         for (Class<? extends Category> subType : subTypes) {

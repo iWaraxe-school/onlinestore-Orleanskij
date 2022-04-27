@@ -1,9 +1,7 @@
 package onlineStore;
 
-import org.xml.sax.SAXException;
+import Category.Product;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 import java.util.*;
 
 public class Sorting implements Comparator<Product> {
@@ -25,12 +23,12 @@ public class Sorting implements Comparator<Product> {
         }
     }
 
-    public static List<Product> sortProductList(List<Product> productList, Map<String, String> sortingMap) throws IOException, ParserConfigurationException, SAXException {
+    public static List<Product> sortProductList(List<Product> productList, Map<String, String> sortingMap) {
         List<Product> productsOfList = new ArrayList<>(productList);
         for (Map.Entry<String, String> entry : sortingMap.entrySet()) {
-            if (entry.getValue().equals("asc")) {
+            if (entry.getValue().equals(SortCommand.ASC.toString().toLowerCase())) {
                 productsOfList.sort(getComparator(entry.getKey()));
-            } else if (entry.getValue().equals("desc")) {
+            } else if (entry.getValue().equals(SortCommand.DESC.toString().toLowerCase())) {
                 productsOfList.sort(getComparator(entry.getKey()).reversed());
             }
         }

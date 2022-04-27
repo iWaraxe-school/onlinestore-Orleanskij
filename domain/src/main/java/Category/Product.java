@@ -1,4 +1,4 @@
-package onlineStore;
+package Category;
 
 public class Product {
 

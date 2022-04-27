@@ -1,5 +1,7 @@
 package onlineStore;
 
+import Category.Category;
+import Category.Product;
 import util.RandomStorePopulator;
 
 import java.util.*;

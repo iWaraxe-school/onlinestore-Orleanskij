@@ -1,6 +1,6 @@
-package onlineStore.categories;
+package Category.categories;
 
-import onlineStore.Category;
+import Category.Category;
 
 public class Milk extends Category {
 
