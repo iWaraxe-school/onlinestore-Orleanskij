@@ -32,7 +32,6 @@ public class Sorting implements Comparator<Product> {
         List<Product> productsOfList = new ArrayList<>(productList);
         Map<String, String> sortingMap = readerMap();
 
-
         for (Map.Entry<String, String> entry : sortingMap.entrySet()) {
             if (entry.getValue().equals("asc")) {
                 productsOfList.sort(getComparator(entry.getKey()));
