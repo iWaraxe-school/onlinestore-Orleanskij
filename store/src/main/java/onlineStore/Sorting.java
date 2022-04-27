@@ -9,17 +9,17 @@ import java.util.*;
 
 import static util.ParsingXML.readerMap;
 
-public class Sorting implements Comparator<Product>{
+public class Sorting implements Comparator<Product> {
 
     public int compare(Product o1, Product o2) {
         return o1.getName().compareTo(o2.getName());
     }
 
     private static Comparator<Product> getComparator(String sortKey) {
-        switch (sortKey){
+        switch (sortKey) {
             case ("name"):
                 return Comparator.comparing(Product::getName);
-            case("price"):
+            case ("price"):
                 return Comparator.comparingInt(Product::getPrice);
             case ("rate"):
                 return Comparator.comparingInt(Product::getRate);
@@ -31,11 +31,13 @@ public class Sorting implements Comparator<Product>{
     public static List<Product> sortProductList(List<Product> productList) throws IOException, ParserConfigurationException, SAXException {
         List<Product> productsOfList = new ArrayList<>(productList);
         Map<String, String> sortingMap = readerMap();
-        for (String sortKey : sortingMap.keySet()) {
-            if (sortingMap.get(sortKey).equals("asc")) {
-                productsOfList.sort(getComparator(sortKey));
-            } else if (sortingMap.get(sortKey).equals("desc")) {
-                productsOfList.sort(getComparator(sortKey).reversed());
+
+
+        for (Map.Entry<String, String> entry : sortingMap.entrySet()) {
+            if (entry.getValue().equals("asc")) {
+                productsOfList.sort(getComparator(entry.getKey()));
+            } else if (entry.getValue().equals("desc")) {
+                productsOfList.sort(getComparator(entry.getKey()).reversed());
             }
         }
         return productsOfList;

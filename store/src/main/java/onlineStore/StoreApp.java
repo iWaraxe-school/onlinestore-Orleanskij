@@ -34,6 +34,6 @@ public class StoreApp {
                     System.out.println("type again");
             }
         }
-        store.printStore();
+//        store.printStore();
     }
 }
