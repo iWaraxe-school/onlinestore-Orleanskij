@@ -1,5 +1,6 @@
-package onlineStore;
+package consoleApp;
 
+import onlineStore.Store;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
