@@ -1,9 +1,9 @@
-package onlineStore;
+package Category;
 
 import java.util.ArrayList;
 import java.util.List;
 
-abstract public class Category {
+public class Category {
 
     public String name;
     public List<Product> productList;

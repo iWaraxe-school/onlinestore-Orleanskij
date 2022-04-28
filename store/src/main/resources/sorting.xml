@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sorting>
+    <sort>
+        <name>asc</name>
+        <price>asc</price>
+        <rate>desc</rate>
+    </sort>
+    <top>
+        <price>desc</price>
+    </top>
+
+</sorting>
