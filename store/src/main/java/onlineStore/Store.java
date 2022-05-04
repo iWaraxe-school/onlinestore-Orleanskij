@@ -2,6 +2,8 @@ package onlineStore;
 
 import Category.Category;
 import Category.Product;
+
+import Category.categories.Categories;
 import util.RandomStorePopulator;
 
 import java.util.*;
@@ -12,9 +14,27 @@ import static util.ParsingXML.readerMap;
 public class Store {
     private List<Category> categories;
 
+    private static Store instance;
+
+    public static Store getInstance() {  //Singleton
+        if (instance == null) {
+            instance = new Store();
+        }
+        return instance;
+    }
 
     public Store() {
-        categories = createCategoriesList();
+//        categories = createCategoriesList();
+        categories = createCategoryList();   //Factory pattern
+    }
+
+    public List<Category> createCategoryList() {
+        List<Category> categoryToAdd = new ArrayList<>();
+        CategoryFactory factory = new CategoryFactory();
+        for (Categories category : Categories.values()) {
+            categoryToAdd = factory.createCategories(category);
+        }
+        return categoryToAdd;
     }
 
     public void fillCategories() {

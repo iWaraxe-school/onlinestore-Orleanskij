@@ -12,7 +12,7 @@ public class StoreApp {
 
 
     public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
-        Store store = new Store();
+        Store store = Store.getInstance();
         store.fillCategories();
         store.printStore();
 
