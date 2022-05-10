@@ -4,15 +4,15 @@ import Category.Category;
 import Category.Product;
 
 import Category.categories.Categories;
-import util.RandomStorePopulator;
 
 import java.util.*;
 
-import static onlineStore.StoreHelper.createCategoriesList;
 import static util.ParsingXML.readerMap;
+import static util.RandomStorePopulator.*;
 
 public class Store {
     private List<Category> categories;
+    public static List<Product> purchasedProducts = new ArrayList<>();
 
     private static Store instance;
 
@@ -38,16 +38,16 @@ public class Store {
     }
 
     public void fillCategories() {
-        RandomStorePopulator populator = new RandomStorePopulator();
+//        RandomStorePopulator populator = new RandomStorePopulator();
         Random random = new Random();
 
         for (Category category : categories) {
             int j = random.nextInt(10);
 
             for (int i = 0; i < j; i++) {
-                String name = populator.generateName(category.getName());
-                int rate = populator.generateRate();
-                int price = populator.generatePrice();
+                String name = generateName(category.getName());
+                int rate = generateRate();
+                int price = generatePrice();
                 Product product = new Product(name, rate, price);
                 category.putProductToList(product);
             }
@@ -100,6 +100,22 @@ public class Store {
             System.out.println(sortedProductList.get(i));
         }
     }
+
+    public List<Product> findProducts(String productName) {
+        List<Product> foundedProducts = new ArrayList<>();
+        for (Product product : getAllProducts()) {
+            if (product.getName().equals(productName)) {
+                foundedProducts.add(product);
+            }
+        }
+        return foundedProducts;
+    }
+
+    public void createOrder(String productName) {
+        new Thread(new ThreadOrder(findProducts(productName))).start();
+        new Thread(new ThreadTime(purchasedProducts)).start();
+    }
+
 
 }
 
