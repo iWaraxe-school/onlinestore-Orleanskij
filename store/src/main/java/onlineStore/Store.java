@@ -113,7 +113,6 @@ public class Store {
 
     public void createOrder(String productName) {
         new Thread(new ThreadOrder(findProducts(productName))).start();
-        new Thread(new ThreadTime(purchasedProducts)).start();
     }
 
 

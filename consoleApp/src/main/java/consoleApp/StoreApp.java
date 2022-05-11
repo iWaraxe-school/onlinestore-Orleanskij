@@ -1,23 +1,27 @@
 package consoleApp;
 
 import onlineStore.Store;
-import org.xml.sax.SAXException;
+import onlineStore.ThreadTime;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Timer;
 
 import static onlineStore.StoreHelper.readerOrder;
 
 public class StoreApp {
 
 
-    public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
+    public static void main(String[] args) throws IOException {
         Store store = Store.getInstance();
         store.fillCategories();
         store.printStore();
 
+        Timer timer = new Timer();
+        timer.schedule(new ThreadTime(), 0, 60000);
+
         Boolean flag = true;
+        Boolean flag2 = true;
         String order = readerOrder();
         while (flag) {
             switch (order) {
@@ -33,11 +37,17 @@ public class StoreApp {
                     flag = false;
                     break;
                 case "create order":
-                    System.out.println("please type the product");
-                    String productName = new Scanner(System.in).next();
-                    store.createOrder(productName);
-                    flag = false;
-                    break;
+                    while (flag2) {
+                        System.out.println("please type the product");
+                        String productName = new Scanner(System.in).next();
+                        switch (productName) {
+                            case "stop":
+                                flag2 = false;
+                                break;
+                            default:
+                                store.createOrder(productName);
+                        }
+                    }
                 default:
                     System.out.println("incorrect order");
                     order = readerOrder();

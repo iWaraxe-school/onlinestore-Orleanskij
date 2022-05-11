@@ -1,28 +1,19 @@
 package onlineStore;
 
 import Category.Product;
-import com.github.javafaker.Faker;
-import lombok.SneakyThrows;
 
-import java.util.List;
+import java.util.TimerTask;
 
-public class ThreadTime implements Runnable {
-    List<Product> orders;
+public class ThreadTime extends TimerTask {
+    Store store;
 
-    public ThreadTime(List<Product> orders) {
-        this.orders = orders;
-    }
 
-    @SneakyThrows
     @Override
     public void run() {
-        Faker faker = new Faker();
-        int timePeriod = faker.number().numberBetween(1, 120) * 1_000;
-        for (Product product : orders) {
+
+        for (Product product : store.purchasedProducts) {
             System.out.println("The '" + product.getName() + "' will deleted from order");
         }
-        System.out.println(timePeriod + "     " + Thread.currentThread());
-        Thread.sleep(timePeriod);
-        orders.clear();
+        store.purchasedProducts.clear();
     }
 }
