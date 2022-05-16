@@ -4,6 +4,7 @@ import Category.Category;
 import Category.Product;
 
 import Category.categories.Categories;
+import lombok.SneakyThrows;
 
 import java.util.*;
 
@@ -37,12 +38,19 @@ public class Store {
         return categoryToAdd;
     }
 
+    @SneakyThrows
     public void fillCategories() {
 //        RandomStorePopulator populator = new RandomStorePopulator();
         Random random = new Random();
+        DataBase.makeConnection();
+        DataBase.createCategoryTable();
+        DataBase.createProductTable();
+        int categoryId = 0;
 
         for (Category category : categories) {
             int j = random.nextInt(10);
+            categoryId++;
+            DataBase.insertCategoryTable(categoryId, category.getName());
 
             for (int i = 0; i < j; i++) {
                 String name = generateName(category.getName());
@@ -50,6 +58,7 @@ public class Store {
                 int price = generatePrice();
                 Product product = new Product(name, rate, price);
                 category.putProductToList(product);
+                DataBase.insertProductTable(categoryId, product);
             }
         }
     }
