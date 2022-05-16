@@ -41,6 +41,7 @@ public class StoreApp {
                     DataBase.deleteProductTable();
                     DataBase.deleteCategoryTable();
                     DataBase.closeConnection();
+                    timer.cancel();
                     break;
                 case "create order":
                     while (flag2) {
