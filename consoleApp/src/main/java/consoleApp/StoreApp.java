@@ -1,9 +1,11 @@
 package consoleApp;
 
+import onlineStore.DataBase;
 import onlineStore.Store;
 import onlineStore.ThreadTime;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.Timer;
 
@@ -12,7 +14,8 @@ import static onlineStore.StoreHelper.readerOrder;
 public class StoreApp {
 
 
-    public static void main(String[] args) throws IOException {
+
+    public static void main(String[] args) throws IOException, SQLException {
         Store store = Store.getInstance();
         store.fillCategories();
         store.printStore();
@@ -35,6 +38,10 @@ public class StoreApp {
                     break;
                 case "quit":
                     flag = false;
+                    DataBase.deleteProductTable();
+                    DataBase.deleteCategoryTable();
+                    DataBase.closeConnection();
+                    timer.cancel();
                     break;
                 case "create order":
                     while (flag2) {
