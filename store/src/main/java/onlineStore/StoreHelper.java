@@ -34,6 +34,8 @@ public class StoreHelper {
     public static String readerOrder() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Please type the command");
+        System.out.println("");
+        System.out.println("- sort - sort the store\n- top -choose top 5 of products\n- create order - add product to cart\n- quit ");
         String s = reader.readLine();
         System.out.println("you typed: " + s);
         return s;

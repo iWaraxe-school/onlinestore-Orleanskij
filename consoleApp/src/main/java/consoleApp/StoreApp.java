@@ -1,27 +1,36 @@
 package consoleApp;
 
-import onlineStore.DataBase;
+import util.DataBase;
 import onlineStore.Store;
-import onlineStore.ThreadTime;
+import onlineStore.http.Client;
+import onlineStore.http.Server;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
-import java.util.Timer;
 
+import static onlineStore.Store.clearStore;
 import static onlineStore.StoreHelper.readerOrder;
 
 public class StoreApp {
 
 
-
-    public static void main(String[] args) throws IOException, SQLException {
+    public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
         Store store = Store.getInstance();
-        store.fillCategories();
-        store.printStore();
 
-        Timer timer = new Timer();
-        timer.schedule(new ThreadTime(), 0, 60000);
+
+//        store.fillCategories();
+//        store.printStore();
+//        store.preparingStore(store);
+
+
+//        Timer timer = new Timer();
+//        timer.schedule(new ThreadTime(), 0, 60000);
+
+        Server server = new Server();
+        server.startHttpServer();
+        Client client = new Client();
+        client.getProductsList();
 
         Boolean flag = true;
         Boolean flag2 = true;
@@ -29,34 +38,49 @@ public class StoreApp {
         while (flag) {
             switch (order) {
                 case "sort":
-                    store.sort(order);
+                    System.out.println("sorted products:");
+//                    store.sort(order);
+                    client.getSortProducts();
+                    clearStore();
+                    server.getServer().stop(5);
                     flag = false;
                     break;
                 case "top":
-                    store.top(order);
+                    System.out.println("top products:");
+//                    store.top(order);
+                    client.getTopProducts();
+                    clearStore();
+                    server.getServer().stop(5);
                     flag = false;
                     break;
                 case "quit":
                     flag = false;
-                    DataBase.deleteProductTable();
-                    DataBase.deleteCategoryTable();
-                    DataBase.closeConnection();
-                    timer.cancel();
+                    clearStore();
+                    server.getServer().stop(5);
+//                    timer.cancel();
                     break;
                 case "create order":
+                    DataBase.createProductTableForCart();
                     while (flag2) {
-                        System.out.println("please type the product");
+                        System.out.println("please type the product\nor\n - clear\n - completed");
                         String productName = new Scanner(System.in).next();
                         switch (productName) {
-                            case "stop":
+                            case "clear":
                                 flag2 = false;
+                                DataBase.deleteProductToCartTable();
+                                break;
+                            case "completed":
+                                client.addToCart();
+                                flag2 = false;
+                                DataBase.deleteProductToCartTable();
                                 break;
                             default:
-                                store.createOrder(productName);
+//                                store.createOrder(productName);
+                                store.createOrderToCart(productName);
                         }
                     }
                 default:
-                    System.out.println("incorrect order");
+                    System.out.println("");
                     order = readerOrder();
             }
         }
