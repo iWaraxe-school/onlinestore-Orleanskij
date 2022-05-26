@@ -3,10 +3,7 @@ package onlineStore.http;
 import com.sun.net.httpserver.BasicAuthenticator;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import onlineStore.http.handler.CartHandler;
-import onlineStore.http.handler.ProductSortHandler;
-import onlineStore.http.handler.ProductsHandler;
-import onlineStore.http.handler.ProductsTopHandler;
+import onlineStore.http.handler.*;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -22,6 +19,7 @@ public class Server {
             createContext(server, "/cart", new CartHandler());
             createContext(server, "/top", new ProductsTopHandler());
             createContext(server, "/sort", new ProductSortHandler());
+            createContext(server, "/category", new CategoryHandler());
             server.setExecutor(null);
             server.start();
     }

@@ -30,6 +30,9 @@ public class StoreApp {
         Server server = new Server();
         server.startHttpServer();
         Client client = new Client();
+        System.out.println("Categories:");
+        client.getCategories();
+        System.out.println("All products");
         client.getProductsList();
 
         Boolean flag = true;

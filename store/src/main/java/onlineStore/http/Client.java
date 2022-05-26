@@ -16,6 +16,11 @@ public class Client {
                 .then().log().body();
     }
 
+    public void getCategories() {
+        RestAssured.given().auth().basic(USERNAME, PASSWORD).when().get("http://localhost:8090/category")
+                .then().log().body();
+    }
+
     public void addToCart() {
         RestAssured.given().auth().basic(USERNAME, PASSWORD).when().post("http://localhost:8090/cart")
                 .then().log().body();
